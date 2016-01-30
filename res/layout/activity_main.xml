@@ -1,0 +1,108 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="start"
+    android:orientation="vertical"
+    tools:context="com.ineptech.magicmirror.MainActivity"
+    android:baselineAligned="false"
+    >
+
+   
+    <TextView
+        android:id="@+id/time_text"
+        style="@style/MirrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:paddingBottom="28dp"
+        android:includeFontPadding="false"
+        android:textSize="128sp" />
+
+	<TextView
+        android:id="@+id/day_text"
+        style="@style/MirrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Sunday the 22nd"
+        android:padding="5dp" 
+        android:paddingBottom="20dp"
+        android:textSize="72sp" />
+
+    <TextView
+        android:id="@+id/weather_text"
+        style="@style/MirrorText"
+        android:includeFontPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="64sp"
+        tools:text="Partly Cloudy" />
+    
+    <TextView
+        android:id="@+id/transit"
+        style="@style/MirrorText"
+        android:includeFontPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="64sp"
+        tools:text="Bus exploded" />
+    
+    <TextView
+        android:id="@+id/finance"
+        style="@style/MirrorText"
+        android:includeFontPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="64sp"
+        tools:text="GOOG: +666%" />
+
+    
+    
+    <TextView
+        android:id="@+id/holiday"
+        style="@style/MirrorText"
+        android:includeFontPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="48sp"
+        android:paddingTop="20sp"
+        tools:text="Merry Kwanza" />
+    
+    <TextView
+        android:id="@+id/birthday_text"
+        style="@style/MirrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="48sp"
+        android:paddingTop="20sp"
+        android:visibility="gone"
+        tools:text="Happy Birthday!" 
+        
+        />
+        
+	<TextView
+        android:id="@+id/email"
+        style="@style/MirrorText"
+        android:includeFontPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="No new messages" 
+        
+        />
+
+    <TextView
+        android:id="@+id/calendar"
+        style="@style/MirrorText"
+        android:includeFontPadding="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="40sp"
+        tools:text="4:00 AM : Go to church" 
+        
+        android:gravity="start"
+        />    
+</LinearLayout >
