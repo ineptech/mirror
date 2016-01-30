@@ -38,8 +38,11 @@ public class TransitModule extends Module{
 	String trainResult = "";
 	
 	ArrayList<TransitModuleItem> items;
-	String defaultUrl1 = "https://developer.trimet.org/ws/V1/arrivals?locIDs=4466&route=44&appID=AD9BD45253308931475B75DDE";
-	String defaultUrl2 = "https://developer.trimet.org/ws/V1/arrivals?locIDs=11502&route=190&appID=AD9BD45253308931475B75DDE";
+	
+	// These are sample URLs for a bus and train in Portland, OR.  You'll need to research the transit service 
+	// in your city and provide a URL and regex that works in your area.
+	String defaultUrl1 = "https://developer.trimet.org/ws/V1/arrivals?locIDs=4466&route=44&appID=ApiKeyGoesHere";
+	String defaultUrl2 = "https://developer.trimet.org/ws/V1/arrivals?locIDs=11502&route=190&appID=ApiKeyGoesHere";
 	String defaultRegex = "estimated=\"(\\d+)\"";
 	
 	public TransitModule() {
@@ -49,9 +52,9 @@ public class TransitModule extends Module{
 				+ "\"Train\" with a train icon)\n * Next, find out what URL you should use "
 				+ "to get the next arrival time of your bus or train (consult the \"Developers\" "
 				+ "section of your transit service website) and paste in the URL field"
-				+ "\n * Finally, enter a regular expression (regex) in the last field that extract "
+				+ "\n * Finally, enter a regular expression (regex) in the last field that extracts "
 				+ "the arrival time (in epoch time) from the transit service API response.  "
-				+ "\n This can be tricky to configure - see the github page for more info.";
+				+ "\n This can be tricky to configure - see github.com/ineptech/mirror for more info.";
 		defaultTextSize = 72;
 		sampleString = "Train: 17m  Bus: 23m";
 		items = new ArrayList<>();

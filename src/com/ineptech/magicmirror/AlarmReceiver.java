@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 
-/*
- *  Cribbed directly from https://github.com/HannahMitt/HomeMirror/
- */
+
+ // Cribbed directly from https://github.com/HannahMitt/HomeMirror/
+
 public class AlarmReceiver extends BroadcastReceiver {
 
     private static final String WAKE_LOCK = "HomeMirrorWakeLock";

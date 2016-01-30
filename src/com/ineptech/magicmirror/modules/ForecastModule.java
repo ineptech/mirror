@@ -31,7 +31,7 @@ import com.ineptech.magicmirror.Utils;
 
 public class ForecastModule extends Module {
 	
-	String apikey = "30cc6bf19bbb41dd5b36b0fbcadb4864";
+	String apikey = "ApiKeyGoesHere";
 	double latitude, latitude_def = 45.5200;
 	double longitude, longitude_def = -122.6819;
 	private static final long timeBetweenCalls = 10 * 60 * 1000; // 10 minutes

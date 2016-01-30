@@ -28,13 +28,13 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         
-        /*
-        //Cribbed directly from https://github.com/HannahMitt/HomeMirror/
+        // Cribbed directly from https://github.com/HannahMitt/HomeMirror/
+        // This should keep the tablet from going to sleep.
+
         AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		Intent intent = new Intent(this, AlarmReceiver.class);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
         alarmMgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + MINUTES_10, MINUTES_10, alarmIntent);
-        */
         
         context = getApplicationContext();
     }
