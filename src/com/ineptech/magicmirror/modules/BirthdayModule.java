@@ -23,7 +23,7 @@ public class BirthdayModule extends Module {
 	private static HashMap<String, String> mBirthdayMap;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M/d", Locale.US);
     final String prefsBirthdays = "BirthdayListString";
-    final String defaultBirthdays = "12/11,Dad|4/17,Mama|3/1,Alice|10/13,Henry|1/11,Nick & Laura|11/3";
+    final String defaultBirthdays = "12/11,Nick";
     
     public BirthdayModule() {
     	super("Birthdays");
