@@ -60,10 +60,13 @@ This app was written by Nick Hall.  It was inspired by [HannahMitt's mirror](htt
 FAQ
 --
 * Can you swipe the tablet through the glass?  Have you thought about voice commands?  What about gesture/face recognition through the camera?
+
 There are other mirror projects that do things like this, but I feel like my house is already littered with tablets and laptops to interact with.  I treat my mirror like a clock - glance at it when you want information, ignore it otherwise.  
 
 * Why do I have to configure brightness manually when most Android tablets include a brightness sensor?  
+
 On my tablet, the sensor is not very accurate at the best of times.  Once the tablet is mounted behind the mirror, the sensor is completely worthless.  YMMV.  Another option would be to try to set it based on the weather (how sunny the forecast.io service thinks it is) but I have not pursued this.
 
 * This seems like a good way to get into Android development, where do I start?
+
 Start by installing Android Studio and Git.  Then do some searches on how to clone the git repository and get it into Android Studio as a new project.  Finally, you'll likely need to get a USB driver for your tablet in order to build the app on your device, so search for "usb driver" and the device name.  Good luck and have fun!
