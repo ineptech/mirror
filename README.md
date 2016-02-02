@@ -33,6 +33,7 @@ Build the mirror
 Configure the app
 --
 ![setup](https://cloud.githubusercontent.com/assets/14241502/12759778/f76fc634-c997-11e5-86e6-86ad1f804d03.png)
+
 1. The configuration screen launches automatically when you run the app.  If you need to get back to it, "hard close" the app (by hitting the square "current apps" menu button and swiping the app away) and re-launch it.  
 2. Each module has a checkbox to disable it.  Un-check any modules you don't want to use.
 3. Each module has a widget for adjusting the text size.  Note that there is some sample output to gauge how the text size will look once the app is launched.  Adjust it however you like.
