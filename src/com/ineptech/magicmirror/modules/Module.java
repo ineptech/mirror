@@ -65,15 +65,20 @@ public class Module {
 		configLayout.addView(cbEnabled);
 		configLayout.addView(fontSizeWidget());
 		
+		addBorder(configLayout);
+		
+	}
+	
+	public static void addBorder(View v) {
 		// Add a border to make the config page look slightly less awful
 	    GradientDrawable border = new GradientDrawable();
 	    border.setColor(Color.BLACK); 
 	    border.setStroke(10, Color.RED); 
-	    configLayout.setPadding(14, 14, 14, 14);
+	    v.setPadding(14, 14, 14, 14);
 	    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-	    	configLayout.setBackgroundDrawable(border);
+	    	v.setBackgroundDrawable(border);
 	    } else {
-	    	configLayout.setBackground(border);
+	    	v.setBackground(border);
 	    }
 	}
 	

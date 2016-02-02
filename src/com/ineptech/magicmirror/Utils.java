@@ -130,7 +130,7 @@ class TimeSelectionWidget {
 		holder = new LinearLayout(context);
 		start = new TimePicker(context);
 		end = new TimePicker(context);
-		float size = 0.8f;
+		float size = 0.6f;
 		start.setScaleX(size); start.setScaleY(size); end.setScaleX(size); end.setScaleY(size);  
 		TextView stv = new TextView(context);
 		stv.setText("From");

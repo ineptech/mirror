@@ -3,6 +3,8 @@ package com.ineptech.magicmirror;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import com.ineptech.magicmirror.modules.Module;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -133,6 +135,7 @@ public class BrightnessController {
     			makeConfigLayout();
     		}
     	});
+    	Module.addBorder(configLayout);
     	configLayout.addView(holder);
     }
     
