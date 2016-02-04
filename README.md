@@ -20,6 +20,7 @@ Features
 * Current temperature and high/low for the day (from [forecast.io](https://developer.forecast.io/))
 * Stock quotes (from yahoo)
 * Time til your bus/train arrives (tricky to set up, but no coding required)
+* Load some text from any web address and put it at the bottom of the screen
 * Configurable brightness and font sizes
 
 Build the mirror
@@ -52,8 +53,9 @@ Configure the app
  * Construct a regex that "captures" the time of the next bus/train and nothing else.  (Regular expressions are complicated!  If you're not familiar with them, find a friend who is and offer beer in exchange for help.  Trading a six-pack to avoid learning how regular expressions work is a *bargain*.)
  * Enter the URL and Regex in the appropriate fields and use the "Test" button to see if it worked.
  * Enter a name and hit the Plus sign to add this Transit item.  Note that you can add more than one.  Also note that, in  the name field, "Train" will be replaced by a picture of a train, and "Bus" with a picture of a bus.
-9. Configure the Brightness controls.  This is tedious but worth it - getting the brightness just right for your environment makes the mirror look a lot better.  If it's too dim, you won't be able to comfortably see the time/date from across the  room; if it's too bright you will see a rectangular "halo" at the edges of the tablet.  Use values between 0 and 1.   I recommend setting the default brightness around 0.5, and then adding a setting of .8 for around 9AM-2PM (or whenever  your room is brightest) and a setting of .1 for the bedtime-sunrise range.  
-10. Hit Save.  The Mirror display will launch, and should stay visible until the app is closed manually.  The modules that show remote data should update themselves every time the minute changes.  
+9. Web Module - enter a url and whatever is at that url will display on the bottom of the mirror.  It should be *brief* - like a text file that contains "Hi honey!", not like the front page of cnn.com.  This is intended as a generic way to handle things that are not included in any other module - whatever system you want to hook in to, if you're too lazy to create a real module for it and you can condense the output down to a line or two of text in a file somewhere on the internet, you can easily add it to the mirror display here.
+10. Configure the Brightness controls.  This is tedious but worth it - getting the brightness just right for your environment makes the mirror look a lot better.  If it's too dim, you won't be able to comfortably see the time/date from across the  room; if it's too bright you will see a rectangular "halo" at the edges of the tablet.  Use values between 0 and 1.   I recommend setting the default brightness around 0.5, and then adding a setting of .8 for around 9AM-2PM (or whenever  your room is brightest) and a setting of .1 for the bedtime-sunrise range.  
+11. Hit Save.  The Mirror display will launch, and should stay visible until the app is closed manually.  The modules that show remote data should update themselves every time the minute changes.  
  
 About
 --
