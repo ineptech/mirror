@@ -77,7 +77,9 @@ public class Utils {
 	        }
 	        if (text.length() > 0) 
 	        	text = Utils.parseTransitTime(text);  
-    	} catch (Exception e) { }
+    	} catch (Exception e) {
+    		text = "The regex threw an exception :(";
+    	}
     	return text;
 	}
     
@@ -117,7 +119,10 @@ public class Utils {
     		} catch (Exception e) {}
     	}
     	// TODO: add handling for other formats as they come up?
-    	return response;
+    	
+    	
+    	// Parsing failed, just return the string
+    	return s;
     }   
 }
 

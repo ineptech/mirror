@@ -17,11 +17,10 @@ import org.apache.http.protocol.HttpContext;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.text.Editable;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
-import android.text.TextWatcher;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,6 +37,8 @@ public class ForecastModule extends Module {
 	long lastRan = 0;
 	int consecFails = 0;
 	String cast = "";
+	Boolean useCelsius = false;
+	CheckBox cbCelsius;
 	
 	public ForecastModule(Context context) {
 		super("Weather");
@@ -63,13 +64,14 @@ public class ForecastModule extends Module {
     private void loadConfig() {
     	latitude = latitude_def;
     	longitude = longitude_def;
-    	String latitude_s = prefs.get(name+"_lattitude", ""+latitude_def);
+    	String latitude_s = prefs.get(name+"_latitude", ""+latitude_def);
     	String longitude_s = prefs.get(name+"_longitude", ""+longitude_def);
     	try {
     		latitude = Double.parseDouble(latitude_s);
     		longitude = Double.parseDouble(longitude_s);
     	} catch (Exception e) { }
     	apikey = prefs.get(name+"_apikey", apikey);
+    	useCelsius = prefs.get(name+"_useCelsius", false);
     }
     
     @Override
@@ -78,6 +80,8 @@ public class ForecastModule extends Module {
     	prefs.set(name+"_latitude", eLat.getText().toString());
     	prefs.set(name+"_longitude", eLong.getText().toString());
     	prefs.set(name+"_apikey", eApikey.getText().toString());
+    	useCelsius = cbCelsius.isChecked();
+    	prefs.set(name+"_useCelsius", useCelsius);
     }
     
     private EditText eLong;
@@ -116,7 +120,10 @@ public class ForecastModule extends Module {
     	eLong.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_NUMBER_FLAG_DECIMAL);
     	eLat.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_NUMBER_FLAG_DECIMAL);
     	
-    	
+    	cbCelsius = new CheckBox(MainApplication.getContext());
+    	cbCelsius.setText("Use Celsius for temperature?");
+    	cbCelsius.setChecked(useCelsius);
+    	holder.addView(cbCelsius);
     }
     
 	void set() {
@@ -157,6 +164,8 @@ class ForecastTask extends AsyncTask <Void, Void, String>{
 		forecastTime += "T" + new SimpleDateFormat("HH:mm:ss-0800").format(new Date());
 		String forecastURL = "https://api.forecast.io/forecast/"+module.apikey+"/"+module.latitude+","+module.longitude+",";
 		String forecastParams = "?exclude=minutely,hourly";
+		if (module.useCelsius)
+			forecastParams += "&units=si";
 		String wholeURL = forecastURL+forecastTime+forecastParams;
 		HttpGet httpGet = new HttpGet(wholeURL);
 		String text = null;

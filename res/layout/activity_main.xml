@@ -82,16 +82,6 @@
         tools:text="Happy Birthday!" 
         
         />
-        
-	<TextView
-        android:id="@+id/email"
-        style="@style/MirrorText"
-        android:includeFontPadding="false"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="No new messages" 
-        
-        />
 
     <TextView
         android:id="@+id/calendar"
@@ -102,7 +92,19 @@
         android:padding="5dp"
         android:textSize="40sp"
         tools:text="4:00 AM : Go to church" 
-        
         android:gravity="start"
-        />    
+    />
+    
+    <TextView
+        android:id="@+id/web"
+        style="@style/MirrorText"
+        android:includeFontPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="No new messages"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:padding="15dp" 
+    />
+        
 </LinearLayout >

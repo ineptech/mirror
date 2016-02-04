@@ -1,10 +1,7 @@
 package com.ineptech.magicmirror;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -32,6 +29,7 @@ import com.ineptech.magicmirror.modules.HolidayModule;
 import com.ineptech.magicmirror.modules.Module;
 import com.ineptech.magicmirror.modules.TimeModule;
 import com.ineptech.magicmirror.modules.TransitModule;
+import com.ineptech.magicmirror.modules.WebModule;
 
 public class MainActivity extends Activity {
 
@@ -44,6 +42,7 @@ public class MainActivity extends Activity {
 	private FinanceModule mFinance;
 	private CalendarModule mCalendar;
 	private CalendarModule.CalendarListener mCalendarListener;
+	private WebModule mWeb;
 	private List<Module> modules;
 	private BrightnessController brightness;
 	BroadcastReceiver mTimeBroadcastReceiver;
@@ -82,6 +81,7 @@ public class MainActivity extends Activity {
         		}
         	}
         };
+        mWeb = new WebModule();
         
         // Make a list of the modules
         modules = new ArrayList<Module>();
@@ -93,6 +93,8 @@ public class MainActivity extends Activity {
         modules.add(mFinance);
         modules.add(mCalendar);
         modules.add(mTransit);
+        modules.add(mWeb);
+        
         
         // Set up the brightness control
         brightness = new BrightnessController(this);
@@ -180,6 +182,7 @@ public class MainActivity extends Activity {
 		mFinance.tv = (TextView) findViewById(R.id.finance);
 		mTransit.tv = (TextView) findViewById(R.id.transit);
 		mCalendar.tv = (TextView) findViewById(R.id.calendar);
+		mWeb.tv = (TextView) findViewById(R.id.web);
 		for (Module module : modules) 
 			module.setTextSize();
 	}
