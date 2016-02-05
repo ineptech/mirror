@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-				
+
 		// resetDefaults();  // uncomment this to clear all settings back to defaults 
 		
 		// set the flags that make the display full screen and hide the menu bar

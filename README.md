@@ -74,3 +74,7 @@ On my tablet, the sensor is not very accurate at the best of times.  Once the ta
 * This seems like a good way to get into Android development, where do I start?
 
 Start by installing Android Studio and Git.  Then do some searches on how to clone the git repository and get it into Android Studio as a new project.  Finally, you'll likely need to get a USB driver for your tablet in order to build the app on your device, so search for "usb driver" and the device name.  Good luck and have fun!
+
+* Wasn't this on reddit?  I swear I saw it there but it seems to have disappeared... What's up with that?
+
+The mods of /r/diy removed it once it reached the Reddit front page.  Dick move, guys.  Dick move.

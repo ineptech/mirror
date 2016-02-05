@@ -30,7 +30,7 @@ import com.ineptech.magicmirror.Utils;
 
 public class ForecastModule extends Module {
 	
-	String apikey = "ApiKeyGoesHere";
+	String apikey = "30cc6bf19bbb41dd5b36b0fbcadb4864";
 	double latitude, latitude_def = 45.5200;
 	double longitude, longitude_def = -122.6819;
 	private static final long timeBetweenCalls = 10 * 60 * 1000; // 10 minutes
@@ -139,6 +139,7 @@ public class ForecastModule extends Module {
 		SpannableStringBuilder builder = new SpannableStringBuilder();
 		builder.append(span);
 		tv.setText(builder);
+		lastRan = Calendar.getInstance().getTimeInMillis();
 	}
 	
 }

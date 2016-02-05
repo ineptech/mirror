@@ -2,13 +2,14 @@ package com.ineptech.magicmirror;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.http.HttpEntity;
 
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -92,7 +93,8 @@ public class Utils {
     		try {
     			Long l = Long.parseLong(s);
     			long diff = l-now;
-    			if (diff > 0 && diff < 1000*60*60*24) {
+    			if (diff > -60*1000*3 && diff < 1000*60*60*24) {
+    				if (diff < 0) diff = 0;   
     				// this parsed to a date in the next 24 hours, this is probably right
    					long hours = diff/(1000*60*60);
    					long mins = (diff%(1000*60*60))/(1000*60);
@@ -108,7 +110,8 @@ public class Utils {
     			long now_s = now/1000;
     			Long l = Long.parseLong(s);
     			long diff = l-now_s;
-    			if (diff > 0 && diff < 60*60*24) {
+    			if (diff > -60*3 && diff < 60*60*24) {
+    				if (diff < 0) diff = 0;
     				// this parsed to a date in the next 24 hours, this is probably right
    					long hours = diff/(60*60);
    					long mins = (diff%(60*60))/60;
@@ -118,7 +121,27 @@ public class Utils {
     			}
     		} catch (Exception e) {}
     	}
-    	// TODO: add handling for other formats as they come up?
+
+    	String[] dateFormats = {"yyyy-MM-dd'T'HH:mm:ss.SSSZ","yyyy-MM-dd'T'HH:mm:ssZ", "yyyy-MM-dd'T'HH:mm:ss" };   
+    	// TODO: add other date formats as necessary
+    	for (String dateFormat : dateFormats) {
+    		try { 
+    			SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+    			Date d = sdf.parse(s);
+    			if (d.getTime() > 0) { // evidently this was the right format, since it didn't crash or eval to 0...
+    				long diff = d.getTime() - now;
+    				diff /= 1000;
+    				if (diff > 0 && diff < 60*60*24) {
+        				// this parsed to a date in the next 24 hours, this is probably right
+       					long hours = diff/(60*60);
+       					long mins = (diff%(60*60))/60;
+       					if (hours > 0) response = hours+"h ";
+       					response += mins+"m";
+       					return response;
+        			}
+    			}
+    		} catch (Exception e) {} 
+    	}
     	
     	
     	// Parsing failed, just return the string
