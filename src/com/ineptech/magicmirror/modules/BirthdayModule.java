@@ -24,6 +24,8 @@ public class BirthdayModule extends Module {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M/d", Locale.US);
     final String prefsBirthdays = "BirthdayListString";
     final String defaultBirthdays = "12/11,Nick";
+    EditText bdayGreeting;
+    String bdayGreetingText = "";
     
     public BirthdayModule() {
     	super("Birthdays");
@@ -46,6 +48,8 @@ public class BirthdayModule extends Module {
     		if (i > 0) 
     			mBirthdayMap.put(b.substring(0, i), b.substring(i+1));
     	}
+    	bdayGreetingText = prefs.get(name+"_greeting", "Happy Birthday ");
+    	
     }
     
     @Override
@@ -58,6 +62,8 @@ public class BirthdayModule extends Module {
     		bdays += bday + "," + mBirthdayMap.get(bday);
     	}
     	prefs.set(prefsBirthdays, bdays);
+    	bdayGreetingText = bdayGreeting.getText().toString();
+    	prefs.set(name+"_greeting", bdayGreetingText);
     }
 
     @Override
@@ -107,8 +113,17 @@ public class BirthdayModule extends Module {
     	addholder.addView(plus);
     	addholder.addView(day);
     	addholder.addView(name);
-    	
     	configLayout.addView(addholder);
+    	
+    	LinearLayout greetingholder = new LinearLayout(MainApplication.getContext());
+    	TextView greettv = new TextView(MainApplication.getContext());
+    	greettv.setText("Message prefix: ");
+    	bdayGreeting = new EditText(MainApplication.getContext());
+    	bdayGreeting.setText(bdayGreetingText);
+    	greetingholder.addView(greettv);
+    	greetingholder.addView(bdayGreeting);
+    	configLayout.addView(greetingholder);
+    	
     }
     
     public void update() {
@@ -118,7 +133,7 @@ public class BirthdayModule extends Module {
         		int num = Calendar.getInstance().get(Calendar.YEAR) - 2012;
         		bday = "Happy " +num+ Utils.getDayOfMonthSuffix(num) + " Anniversary,\n"+bday+"!";
         	} else {
-        		bday = "Happy Birthday "+bday;
+        		bday = bdayGreetingText + bday;
         	}
         	tv.setText(bday);
         	tv.setVisibility(TextView.VISIBLE);
