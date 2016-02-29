@@ -48,7 +48,7 @@ public class ForecastModule extends Module {
 				+ "Then enter your latitude and longitude (be sure to get the signs right).  I hope to add "
 				+ "snow/rain/etc icons at some point, haven't gotten to it yet...";
 		defaultTextSize = 72;
-		sampleString = "100° (90° | 110°)";
+		sampleString = "100Â° (90Â° | 110Â°)";
 		loadConfig();
 	}
 	
@@ -161,13 +161,11 @@ class ForecastTask extends AsyncTask <Void, Void, String>{
 		
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpContext localContext = new BasicHttpContext();
-		String forecastTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		forecastTime += "T" + new SimpleDateFormat("HH:mm:ss-0800").format(new Date());
-		String forecastURL = "https://api.forecast.io/forecast/"+module.apikey+"/"+module.latitude+","+module.longitude+",";
+		String forecastURL = "https://api.forecast.io/forecast/"+module.apikey+"/"+module.latitude+","+module.longitude;
 		String forecastParams = "?exclude=minutely,hourly";
 		if (module.useCelsius)
 			forecastParams += "&units=si";
-		String wholeURL = forecastURL+forecastTime+forecastParams;
+		String wholeURL = forecastURL+forecastParams;
 		HttpGet httpGet = new HttpGet(wholeURL);
 		String text = null;
 		try {
@@ -210,7 +208,7 @@ class ForecastTask extends AsyncTask <Void, Void, String>{
         int ftemp = Math.round(Float.parseFloat(temp));
 		int flow = Math.round(Float.parseFloat(low));
 		int fhigh = Math.round(Float.parseFloat(high));
-		String cast = ftemp +"° ("+fhigh+"° | "+flow+"°)";
+		String cast = ftemp +"Â° ("+fhigh+"Â° | "+flow+"Â°)";
         
 		// TODO: Check for weather alerts and display something suitable?
 		if (s.contains("Alert")) {
