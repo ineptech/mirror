@@ -161,7 +161,7 @@ class ForecastTask extends AsyncTask <Void, Void, String>{
 		
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpContext localContext = new BasicHttpContext();
-		String forecastURL = "https://api.forecast.io/forecast/"+module.apikey+"/"+module.latitude+","+module.longitude;
+		String forecastURL = "https://api.forecast.io/forecast/"+module.apikey+"/"+module.latitude+","+module.longitude+";
 		String forecastParams = "?exclude=minutely,hourly";
 		if (module.useCelsius)
 			forecastParams += "&units=si";
