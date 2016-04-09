@@ -31,8 +31,8 @@ public class HolidayModule extends Module {
     public HolidayModule() {
     	super("Holidays");
     	desc = "Display any message you like on specific dates.  Use the buttons below to remove existing holidays "
-    			+ "or add new ones.\n Note: currently, four holidays  (Thanksgiving, Labor Day (US), "
-    			+ "Mother's Day and Father's Day) are hard-coded.  This is because they fall on varying dates (e.g. "
+    			+ "or add new ones.\n Note: currently, four US holidays  (Thanksgiving, Labor Day (US), "
+    			+ "Mother's Day and Father's Day) are hard-coded.  This is because they fall on a different date each year (e.g. "
     			+ "3rd Thursday in November) and I am too lazy to make the UI widgets necessary to configure stuff "
     			+ "like that.  If this is a problem, there are checkboxes to disable them.";
     	defaultTextSize = 64;
@@ -150,7 +150,7 @@ public class HolidayModule extends Module {
      */
     public void update() {
     	
-        String hday = "";
+        String hday = null;
         Calendar cal = Calendar.getInstance();
         if (usePresetHolidaysMothersAndFathersDay) {
         	if (cal.get(Calendar.MONTH)== Calendar.MAY && cal.get(Calendar.DAY_OF_WEEK)== Calendar.SUNDAY 

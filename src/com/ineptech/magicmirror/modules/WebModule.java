@@ -76,8 +76,8 @@ public class WebModule extends Module {
     		holder.setOrientation(LinearLayout.HORIZONTAL);
     		TextView hdtv = new TextView(MainApplication.getContext());
     		hdtv.setText(mUrl);
-    		holder.addView(hdtv);
     		holder.addView(remove);
+    		holder.addView(hdtv);
     		configLayout.addView(holder);
     	}
     	// widgets for adding a new Url
@@ -104,6 +104,10 @@ public class WebModule extends Module {
     }
     
 	public void update() {
+		if (Utils.isNewDay()) {
+			consecFails = 0;  // try to retry every day in case of temporary network failures
+			tv.setText("");  // clear old text
+		}
 		if (consecFails > 9) {
 			tv.setText("");
 			tv.setVisibility(TextView.GONE);

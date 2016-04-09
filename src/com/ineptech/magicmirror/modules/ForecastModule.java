@@ -53,6 +53,10 @@ public class ForecastModule extends Module {
 	}
 	
 	public void update() {
+		if (Utils.isNewDay()) {
+			consecFails = 0;  // try to retry every day in case of temporary network failures
+			tv.setText("");  // clear old text
+		}
 		if (consecFails > 9) {
 			tv.setText("");
 			tv.setVisibility(TextView.GONE);

@@ -117,7 +117,7 @@ public class BirthdayModule extends Module {
     	
     	LinearLayout greetingholder = new LinearLayout(MainApplication.getContext());
     	TextView greettv = new TextView(MainApplication.getContext());
-    	greettv.setText("Message prefix: ");
+    	greettv.setText("Message prefix:  ");
     	bdayGreeting = new EditText(MainApplication.getContext());
     	bdayGreeting.setText(bdayGreetingText);
     	greetingholder.addView(greettv);

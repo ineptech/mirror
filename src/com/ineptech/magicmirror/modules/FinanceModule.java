@@ -114,6 +114,10 @@ public class FinanceModule extends Module {
     }
     
 	public void update() {
+		if (Utils.isNewDay()) {
+			consecFails = 0;  // try to retry every day in case of temporary network failures
+			tv.setText("");  // clear yesterday's text
+		}
 		if (consecFails > 9 || Utils.afterFive() || !Utils.isWeekday()) {
 			tv.setText("");
 			tv.setVisibility(TextView.GONE);
