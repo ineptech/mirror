@@ -1,6 +1,7 @@
 package com.ineptech.magicmirror.modules;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +32,6 @@ import com.ineptech.magicmirror.Utils;
 
 public class TransitModule extends Module{
 
-	int consecFails = 0;
 	ImageSpan isBus;
 	ImageSpan isTrain;
 	String busResult = "";
@@ -58,8 +58,9 @@ public class TransitModule extends Module{
 		defaultTextSize = 72;
 		sampleString = "Train: 17m  Bus: 23m";
 		items = new ArrayList<>();
+		hasRegularUpdates = true;
+		defaultUpdateFrequency = 1;
 		loadConfig();
-		
 	}
 	
 	public void setIconSizes() {
@@ -81,7 +82,7 @@ public class TransitModule extends Module{
 		if (consecFails > 9 || (!Utils.isTimeForWork() && !Utils.debug)) {
 			tv.setText("");
 			tv.setVisibility(TextView.GONE);
-		} else {
+		} else if (Calendar.getInstance().getTimeInMillis() > (lastRan + timeBetweenUpdates)) {
 			tv.setVisibility(TextView.VISIBLE);
 			for (TransitModuleItem item : items) {
 				new TransitTask(item).execute();
@@ -173,9 +174,7 @@ public class TransitModule extends Module{
 			}
     	});
     	addholder.addView(test);
-    	addholder.addView(testresult);
-    	
-    	
+    	addholder.addView(testresult);    	
     	if (items.size() < 9)
     		configLayout.addView(addholder2);
     }
@@ -301,5 +300,6 @@ class TransitTask extends AsyncTask <Void, Void, String> {
 			else
 				item.taskFailure();
 		}
+		item.module.lastRan = Calendar.getInstance().getTimeInMillis();
 	}	
 }

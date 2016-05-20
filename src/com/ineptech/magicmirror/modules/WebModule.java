@@ -2,8 +2,6 @@ package com.ineptech.magicmirror.modules;
 
 import java.net.URI;
 import java.net.URL;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.apache.http.HttpEntity;
@@ -28,22 +26,21 @@ import com.ineptech.magicmirror.Utils;
 
 public class WebModule extends Module {
 
-	private static final long timeBetweenCalls = 10 * 60 * 1000; // Only update every 10 minutes
-	long lastRan = 0;
-	int consecFails = 0;
 	public String mUrl; // list of stock tickers currently configured to be displayed
     final String prefsUrl = "WebUrlString";
-    final String defaultUrl = "";
+    final String defaultUrl = "http://api.forismatic.com/api/1.0/?method=getQuote&format=text&lang=en";
     
 	public WebModule() {
+		
 		super("Web Module");
 		desc = "This module simply pulls the specified web page(s) and displays whatever it finds.  I mean *everything* it finds "
 				+ "there, the entire file -  make sure whatever the url points to is limited to a brief message.  This allows "
-				+ "you to add arbitrary text in to the mirror display.  The default URL goes to an api run by Forsmatic which "
-				+ "returns a random inspirational quote, but any URL that returns brief text will work.";
+				+ "you to add arbitrary text in to the mirror display.  Try it out with http://ineptech.com/test.html if you like.";
 		defaultTextSize = 40;
 		sampleString = "Arbitrary Web Content";
 		mUrl = "";
+		hasRegularUpdates = true;
+		defaultUpdateFrequency = 10;
     	loadConfig();
 	}
 	
@@ -84,7 +81,7 @@ public class WebModule extends Module {
     	// widgets for adding a new Url
     	if (mUrl.length() == 0) {
 	    	final EditText addurl = new EditText(MainApplication.getContext());
-	    	addurl.setText("http://api.forismatic.com/api/1.0/?method=getQuote&format=text&lang=en");
+	    	addurl.setText(defaultUrl);
 	    	Button plus = new Button(MainApplication.getContext());
 	    	plus.setText("+");
 	    	plus.setOnClickListener
@@ -112,7 +109,7 @@ public class WebModule extends Module {
 		if (consecFails > 9) {
 			tv.setText("");
 			tv.setVisibility(TextView.GONE);
-		} else if (Calendar.getInstance().getTimeInMillis() > (lastRan + timeBetweenCalls)) {
+		} else if (Calendar.getInstance().getTimeInMillis() > (lastRan + timeBetweenUpdates)) {
 			tv.setVisibility(TextView.VISIBLE);
 			new WebTask(this).execute();
 		}
@@ -161,6 +158,8 @@ class WebTask extends AsyncTask <Void, Void, String>{
 	protected void onPostExecute(String results) {
 		if (results!=null) {
 			module.newText(results);
+			module.consecFails = 0;
+			module.lastRan = Calendar.getInstance().getTimeInMillis();
 		} else {
 			module.consecFails++;
 		}

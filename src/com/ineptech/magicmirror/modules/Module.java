@@ -1,14 +1,17 @@
 package com.ineptech.magicmirror.modules;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,6 +35,12 @@ public class Module {
 	MirrorPrefs prefs;
 	int defaultTextSize = 40;
 	int textSize;
+	Boolean hasRegularUpdates = false;
+	int defaultUpdateFrequency = 10;
+	EditText frequencyValue;
+	long timeBetweenUpdates = 10 * 60 * 1000; 
+	long lastRan = 0;
+	int consecFails = 0;
 	
 	String sampleString = "Sample Output";
 	
@@ -65,17 +74,28 @@ public class Module {
 		configLayout.addView(cbEnabled);
 		configLayout.addView(fontSizeWidget());
 		
+		if (hasRegularUpdates) {
+			TextView frequencyLabel = new TextView(context);
+			frequencyLabel.setText("Update every ___ minutes?");
+			frequencyLabel.setTextSize(24*MainActivity.textSizeGuessFactor);
+			frequencyValue = new EditText(MainApplication.getContext());
+			frequencyValue.setText("" + prefs.get(name+"_updateFrequency", defaultUpdateFrequency));
+	    	frequencyValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+	    	configLayout.addView(frequencyLabel);
+	    	configLayout.addView(frequencyValue);
+		}
 		addBorder(configLayout);
 		
 	}
 	
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	public static void addBorder(View v) {
 		// Add a border to make the config page look slightly less awful
 	    GradientDrawable border = new GradientDrawable();
 	    border.setColor(Color.BLACK); 
 	    border.setStroke(10, Color.RED); 
 	    v.setPadding(14, 14, 14, 14);
-	    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+	    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
 	    	v.setBackgroundDrawable(border);
 	    } else {
 	    	v.setBackground(border);
@@ -86,6 +106,18 @@ public class Module {
 		// called when the config panel is closed, should save everything to prefs
 		isEnabled = cbEnabled.isChecked();
 		prefs.set(name+"_enabled", cbEnabled.isChecked());
+		if (hasRegularUpdates) {
+			int i = defaultUpdateFrequency;
+			try {
+				int q = Integer.parseInt(frequencyValue.getText().toString());
+				if (q > 0 && q <= 24*60)
+					i = q;
+			} catch (Exception e) {}
+			prefs.set(name+"_updateFrequency", i);
+			timeBetweenUpdates = (i-1) * 1000 * 60;  //minutes. 
+			// The -1 is because each refresh happens just after a tick, so less than a minute
+			// will elapse before the next tick
+		}
 	}
 	
 	public void update() {

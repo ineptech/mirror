@@ -33,9 +33,6 @@ public class ForecastModule extends Module {
 	String apikey = "30cc6bf19bbb41dd5b36b0fbcadb4864";
 	double latitude, latitude_def = 45.5200;
 	double longitude, longitude_def = -122.6819;
-	private static final long timeBetweenCalls = 10 * 60 * 1000; // 10 minutes
-	long lastRan = 0;
-	int consecFails = 0;
 	String cast = "";
 	Boolean useCelsius = false;
 	CheckBox cbCelsius;
@@ -49,6 +46,8 @@ public class ForecastModule extends Module {
 				+ "snow/rain/etc icons at some point, haven't gotten to it yet...";
 		defaultTextSize = 72;
 		sampleString = "100° (90° | 110°)";
+		hasRegularUpdates = true;
+		defaultUpdateFrequency = 10;
 		loadConfig();
 	}
 	
@@ -60,7 +59,7 @@ public class ForecastModule extends Module {
 		if (consecFails > 9) {
 			tv.setText("");
 			tv.setVisibility(TextView.GONE);
-		} else if (Calendar.getInstance().getTimeInMillis() > (lastRan + timeBetweenCalls)) {
+		} else if (Calendar.getInstance().getTimeInMillis() > (lastRan + timeBetweenUpdates)) {
 			new ForecastTask(this).execute();
 		}
 	}
@@ -143,6 +142,7 @@ public class ForecastModule extends Module {
 		SpannableStringBuilder builder = new SpannableStringBuilder();
 		builder.append(span);
 		tv.setText(builder);
+		consecFails = 0;
 		lastRan = Calendar.getInstance().getTimeInMillis();
 	}
 	

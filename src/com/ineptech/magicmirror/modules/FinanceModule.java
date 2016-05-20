@@ -29,14 +29,13 @@ import com.ineptech.magicmirror.Utils;
 
 public class FinanceModule extends Module {
 
-	private static final long timeBetweenCalls = 10 * 60 * 1000; // Only update every 10 minutes
+	
 	long lastRan = 0;
 	int consecFails = 0;
 	public static ArrayList<String> mStocks; // list of stock tickers currently configured to be displayed
     final String prefsStocks = "StockListString";
     final String defaultStocks = "^GSPC,GOOG,AAPL";
 
-	
 	public FinanceModule() {
 		super("Stock ticker");
 		desc = "Pulls stock quotes from Yahoo's free (no API key needed) finance API.  The tickers for the "
@@ -45,6 +44,8 @@ public class FinanceModule extends Module {
 		defaultTextSize = 72;
 		sampleString = "Microsoft: +2.3%";
 		mStocks = new ArrayList<>();
+		hasRegularUpdates = true;
+		defaultUpdateFrequency = 2;
     	loadConfig();
 	}
 	
@@ -121,7 +122,7 @@ public class FinanceModule extends Module {
 		if (consecFails > 9 || Utils.afterFive() || !Utils.isWeekday()) {
 			tv.setText("");
 			tv.setVisibility(TextView.GONE);
-		} else if (Calendar.getInstance().getTimeInMillis() > (lastRan + timeBetweenCalls)) {
+		} else if (Calendar.getInstance().getTimeInMillis() > (lastRan + timeBetweenUpdates)) {
 			tv.setVisibility(TextView.VISIBLE);
 			new FinanceTask(this).execute();
 		}
