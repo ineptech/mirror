@@ -30,7 +30,7 @@ import com.ineptech.magicmirror.Utils;
 
 public class ForecastModule extends Module {
 	
-	String apikey = "sample_key";
+	String apikey = "Go_to_darksky.net/dev_and_register_for_apikey_and_enter_here";
 	double latitude, latitude_def = 45.5200;
 	double longitude, longitude_def = -122.6819;
 	String cast = "";
@@ -40,8 +40,8 @@ public class ForecastModule extends Module {
 	public ForecastModule(Context context) {
 		super("Weather");
 		desc = "Shows today's temperatures: \"current (high | low)\" as reported by forecast.io.  "
-				+ "This will not work until you go to forecast.io and register to get a (free) api key "
-				+ "and enter it in to the box below.  To do so, visit developer.forecast.io and click on Register. "
+				+ "This will not work until you go to darksky.net/dev and register to get a (free) api key "
+				+ "and enter it in to the box below.  To do so, go to darksky.net/dev and click on Register. "
 				+ "Then enter your latitude and longitude (be sure to get the signs right).  I hope to add "
 				+ "snow/rain/etc icons at some point, haven't gotten to it yet...";
 		defaultTextSize = 72;
@@ -109,7 +109,7 @@ public class ForecastModule extends Module {
     	eLong.setBackgroundColor(Color.LTGRAY);
     	holder.addView(eLong);
     	TextView tv3 = new TextView(MainApplication.getContext());
-    	tv3.setText("Api key (get from forecast.io and copy-paste here): ");
+    	tv3.setText("Api key (get from darksky.net and copy-paste here): ");
     	holder.addView(tv3);
     	eApikey = new EditText(MainApplication.getContext());
     	eApikey.setBackgroundColor(Color.LTGRAY);
@@ -151,8 +151,11 @@ public class ForecastModule extends Module {
 class ForecastTask extends AsyncTask <Void, Void, String>{
 
 	private ForecastModule module;
+	
+	String forecastDomain = "https://api.darksky.net";
 	String sampleResponse = "{\"latitude\":45.52,\"longitude\":122.6819,\"timezone\":\"Asia/Harbin\",\"offset\":8,\"currently\":{\"time\":1449289114,\"summary\":\"Clear\",\"icon\":\"clear-day\",\"precipType\":\"snow\",\"temperature\":22.35,\"apparentTemperature\":11.63,\"dewPoint\":2.76,\"humidity\":0.42,\"windSpeed\":10.22,\"windBearing\":304,\"visibility\":10,\"cloudCover\":0,\"pressure\":1026.52},\"daily\":{\"data\":[{\"time\":1449244800,\"summary\":\"Clear throughout the day.\",\"icon\":\"clear-day\",\"sunriseTime\":1449270846,\"sunsetTime\":1449302882,\"moonPhase\":0.8,\"precipType\":\"snow\",\"temperatureMin\":10.48,\"temperatureMinTime\":1449320400,\"temperatureMax\":22.73,\"temperatureMaxTime\":1449291600,\"apparentTemperatureMin\":4.25,\"apparentTemperatureMinTime\":1449316800,\"apparentTemperatureMax\":12.86,\"apparentTemperatureMaxTime\":1449291600,\"dewPoint\":3.95,\"humidity\":0.58,\"windSpeed\":5.86,\"windBearing\":292,\"visibility\":8.33,\"pressure\":1024.88}]},\"flags\":{\"sources\":[\"isd\"],\"isd-stations\":[\"508440-99999\",\"509490-99999\",\"540260-99999\",\"540490-99999\"],\"units\":\"us\"}}";
-	String sampleForecastURL = "https://api.forecast.io/forecast/api_key_goes_here/45.5200,-122.6819,2015-12-04T20:18:34-0800?units=us&exclude=minutely,hourly";
+	String sampleForecastURL = forecastDomain + "/forecast/api_key_goes_here/45.5200,-122.6819,2015-12-04T20:18:34-0800?units=us&exclude=minutely,hourly";
+	String sample2 = forecastDomain + "/forecast/apikey/37.8267,-122.4233";
 	
 	public ForecastTask(ForecastModule _module) {
 		module = _module;
@@ -167,7 +170,7 @@ class ForecastTask extends AsyncTask <Void, Void, String>{
 		HttpContext localContext = new BasicHttpContext();
 		String forecastTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		forecastTime += "T" + new SimpleDateFormat("HH:mm:ss").format(new Date());
-		String forecastURL = "https://api.forecast.io/forecast/"+module.apikey+"/"+module.latitude+","+module.longitude+",";
+		String forecastURL = forecastDomain+ "/forecast/"+module.apikey+"/"+module.latitude+","+module.longitude+",";
 		String forecastParams = "?exclude=minutely,hourly";
 		if (module.useCelsius)
 			forecastParams += "&units=si";
